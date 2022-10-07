@@ -1,29 +1,59 @@
 /** @format */
 
-import React, { useState,useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import logo from "../assets/logo.png";
 import "./EditorPage.css";
+import { toast } from "react-hot-toast";
 import Clint from "../components/Clint";
 import Editor from "../components/Editor";
-import {initSocket} from "../Socket"
+import { initSocket } from "../Socket";
+import ACTIONS from "../Actions";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const EditorPage = () => {
-  const socketRef = useRef(null)
-  const [users, setUsers] = useState([
-    { UserId: 1, UserName: "Varun" },
-    { UserId: 2, UserName: "Vivek" },
-    { UserId: 3, UserName: "Vivek" },
-  ]);
+  const socketRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { roomId } = useParams();
 
-  useEffect(()=>{
+  const [users, setUsers] = useState([]);
 
+  useEffect(() => {
     const init = async () => {
-     socketRef.current = await initSockets();
-    }
-    
-    init()
+      socketRef.current = await initSocket();
 
-  },[])
+      socketRef.current.on("connect_error", (err) => handleErrors(err));
+      socketRef.current.on("connect_failed", (err) => handleErrors(err));
+
+      function handleErrors(e) {
+        console.log("socket error", e);
+        toast.error("Socket connection failed, try again later.");
+        navigate("/");
+      }
+
+      socketRef.current.emit(ACTIONS.JOIN, {
+        roomId,
+        userName: location.state?.userName,
+      });
+
+      socketRef.current.on(
+        ACTIONS.JOINED,
+        ({ clients, userName, scoketId }) => {
+          if (userName != location.state?.userName) {
+            toast.success(`${userName} joined the room.`);
+          }
+          console.log(clients);
+          setUsers(clients);
+        }
+      );
+    };
+
+    init();
+  }, []);
+
+  if (!location.state) {
+    navigate("/");
+  }
 
   return (
     <div className="editorHomeWrapper">
@@ -33,7 +63,7 @@ const EditorPage = () => {
           <h2>Connected</h2>
           <div className="Clintsdisplay">
             {users.map((user) => (
-              <Clint Name={user.UserName} key={user.UserId} />
+              <Clint Name={user.userName} key={user.scoketId} />
             ))}
           </div>
         </div>
