@@ -46,9 +46,19 @@ const EditorPage = () => {
           setUsers(clients);
         }
       );
+
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, userName }) => {
+        toast.success(`${userName} disconnected from the room.`);
+        setUsers((prev) => {
+          return prev.filter((clint) => clint.socketId != socketId);
+        });
+      });
     };
 
     init();
+    socketRef.current.disconnect();
+    socketRef.current.off(ACTIONS.JOINED).disconnect();
+    socketRef.current.off(ACTIONS.DISCONNECTED).disconnect();
   }, []);
 
   if (!location.state) {
