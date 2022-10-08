@@ -12,10 +12,10 @@ const server = http.createServer(app);
 
 const io = new Server(server);
 
-app.use(express.static("../clint/build"));
+app.use(express.static("./clint/build"));
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "../clint/build", "index.html"));
+  res.sendFile(path.join(__dirname, "./clint/build", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;

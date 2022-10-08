@@ -1,0 +1,87 @@
+.homeWarpper
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formwrapper{
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    width: 40rem;
+    background: #282a36;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.logoimg{
+    display: flex;
+    align-self: flex-start;
+    width: 150px;
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 4px;
+
+}
+.mainlabel{
+    display: flex;
+    align-self: flex-start;
+    font-size: 3 rem;
+}
+
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputfelid{
+    height: 3.5rem;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.joinBtn{
+    background: #4aed88;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-left: auto;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.joinBtn:hover{
+    background: #00a33f;
+}
+.newRoom
+{
+    color:#4aed88;
+    font-size: 1.5rem;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.newRoom:hover{
+    color: #00a33f;
+}
+
+.bulit{
+    color: #4aed88;
+}
+
+.bulit:hover{
+    color: #00a33f;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+}
