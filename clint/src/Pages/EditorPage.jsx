@@ -42,7 +42,6 @@ const EditorPage = () => {
           if (userName != location.state?.userName) {
             toast.success(`${userName} joined the room.`);
           }
-          console.log(clients);
           setUsers(clients);
         }
       );
@@ -56,9 +55,11 @@ const EditorPage = () => {
     };
 
     init();
-    socketRef.current.disconnect();
-    socketRef.current.off(ACTIONS.JOINED).disconnect();
-    socketRef.current.off(ACTIONS.DISCONNECTED).disconnect();
+    // return () => {
+    //   socketRef.current.disconnect();
+    //   socketRef.current.off(ACTIONS.JOINED).disconnect();
+    //   socketRef.current.off(ACTIONS.DISCONNECTED).disconnect();
+    // };
   }, []);
 
   if (!location.state) {
@@ -83,7 +84,7 @@ const EditorPage = () => {
         </div>
       </div>
       <div className="rightWrapper">
-        <Editor />
+        <Editor socketRef={socketRef} roomId={roomId} />
       </div>
     </div>
   );
