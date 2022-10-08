@@ -12,6 +12,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const EditorPage = () => {
   const socketRef = useRef(null);
+  const codeRef = useRef(null);
+
   const location = useLocation();
   const navigate = useNavigate();
   const { roomId } = useParams();
@@ -38,11 +40,15 @@ const EditorPage = () => {
 
       socketRef.current.on(
         ACTIONS.JOINED,
-        ({ clients, userName, scoketId }) => {
+        ({ clients, userName, socketId }) => {
           if (userName != location.state?.userName) {
             toast.success(`${userName} joined the room.`);
           }
           setUsers(clients);
+          socketRef.current.emit(ACTIONS.SYNC_CODE, {
+            code: codeRef.current,
+            socketId,
+          });
         }
       );
 
@@ -55,16 +61,33 @@ const EditorPage = () => {
     };
 
     init();
-    // return () => {
-    //   socketRef.current.disconnect();
-    //   socketRef.current.off(ACTIONS.JOINED).disconnect();
-    //   socketRef.current.off(ACTIONS.DISCONNECTED).disconnect();
-    // };
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+
+        socketRef.current.off(ACTIONS.JOINED).disconnect();
+        socketRef.current.off(ACTIONS.DISCONNECTED).disconnect();
+      }
+    };
   }, []);
 
   if (!location.state) {
     navigate("/");
   }
+
+  const copyRoomId = async () => {
+    try {
+      console.log(roomId);
+      await navigator.clipboard.writeText(roomId);
+      toast.success("Room Id has been copied to clipboard.");
+    } catch (error) {
+      toast.error("Unable to copy Room Id");
+    }
+  };
+
+  const leaveRoom = async () => {
+    navigate("/");
+  };
 
   return (
     <div className="editorHomeWrapper">
@@ -79,12 +102,20 @@ const EditorPage = () => {
           </div>
         </div>
         <div className="leftBottom">
-          <button className="leftBtn copy">Copy Room Id</button>
-          <button className="leftBtn leave">Leave Room</button>
+          <button className="leftBtn copy" onClick={copyRoomId}>
+            Copy Room Id
+          </button>
+          <button className="leftBtn leave" onClick={leaveRoom}>
+            Leave Room
+          </button>
         </div>
       </div>
       <div className="rightWrapper">
-        <Editor socketRef={socketRef} roomId={roomId} />
+        <Editor
+          socketRef={socketRef}
+          roomId={roomId}
+          onCodeChange={(code) => (codeRef.current = code)}
+        />
       </div>
     </div>
   );
