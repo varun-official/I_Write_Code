@@ -1,87 +1,102 @@
-.homeWarpper
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/** @format */
+
+.homeWarpper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.formwrapper{
-    display: flex;
-    flex-direction: column;
-    border-radius: 8px;
-    width: 40rem;
-    background: #282a36;
-    color: #ffffff;
-    padding: 10px;
+.formwrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  width: 40rem;
+  background: #282a36;
+  color: #ffffff;
+  padding: 10px;
 }
 
-.logoimg{
-    display: flex;
-    align-self: flex-start;
-    width: 150px;
-    height: 50px;
-    background-color: #ffffff;
-    border-radius: 4px;
-
+.logoimg {
+  display: flex;
+  align-self: flex-start;
+  width: 150px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 4px;
 }
-.mainlabel{
-    display: flex;
-    align-self: flex-start;
-    font-size: 3 rem;
-}
-
-.inputGroup{
-    display: flex;
-    flex-direction: column;
+.mainlabel {
+  display: flex;
+  align-self: flex-start;
+  font-size: 3 rem;
 }
 
-.inputfelid{
-    height: 3.5rem;
-    outline: none;
-    border: none;
-    border-radius: 4px;
-    margin-bottom: 7px;
-    font-weight: bold;
-    font-size: 1.5rem;
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+.inputwithcopy {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
 }
 
-.joinBtn{
-    background: #4aed88;
-    width: 100px;
-    height: 30px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    margin-left: auto;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-.joinBtn:hover{
-    background: #00a33f;
-}
-.newRoom
-{
-    color:#4aed88;
-    font-size: 1.5rem;
-    transition: all 0.3s ease-in-out;
+.inputfelid {
+  width: 100%;
 
+  height: 3.5rem;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 7px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-left: 1rem;
 }
 
-.newRoom:hover{
-    color: #00a33f;
+.inputwithcopy .copyicon {
+  position: absolute;
+  right: 0;
+  margin: 6px 10px;
+  cursor: pointer;
+  font-size: 2rem;
 }
 
-.bulit{
-    color: #4aed88;
+.joinBtn {
+  background: #4aed88;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: auto;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.joinBtn:hover {
+  background: #00a33f;
+}
+.newRoom {
+  color: #4aed88;
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in-out;
 }
 
-.bulit:hover{
-    color: #00a33f;
+.newRoom:hover {
+  color: #00a33f;
 }
 
-footer{
-    position: fixed;
-    bottom: 0;
+.bulit {
+  color: #4aed88;
+}
+
+.bulit:hover {
+  color: #00a33f;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
 }

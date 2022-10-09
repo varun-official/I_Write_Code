@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { v4 as uuidV4 } from "uuid";
 import { toast } from "react-hot-toast";
+import { AiFillCopy } from "react-icons/ai";
 
 import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
@@ -19,6 +20,15 @@ const HomePage = () => {
     const id = uuidV4();
     setRoomId(id);
     toast.success("Room Id created");
+  };
+
+  const copyRoomId = async () => {
+    try {
+      await navigator.clipboard.writeText(roomId);
+      toast.success("Room Id has been copied to clipboard.");
+    } catch (error) {
+      toast.error("Unable to copy Room Id");
+    }
   };
 
   const handleEnter = (e) => {
@@ -48,14 +58,18 @@ const HomePage = () => {
 
         <h2 className="mainlabel">Paste invitation ROOM ID</h2>
         <div className="inputGroup">
-          <input
-            type="text"
-            placeholder="ROOM ID"
-            className="inputfelid"
-            value={roomId}
-            onChange={(e) => setRoomId(e.target.value)}
-            onKeyUp={handleEnter}
-          />
+          <div className="inputwithcopy">
+            <input
+              type="text"
+              placeholder="ROOM ID"
+              className="inputfelid"
+              value={roomId}
+              onChange={(e) => setRoomId(e.target.value)}
+              onKeyUp={handleEnter}
+            />
+            <AiFillCopy className="copyicon" onClick={copyRoomId} />
+          </div>
+
           <input
             type="text"
             placeholder="User Name"
