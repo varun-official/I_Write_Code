@@ -13,11 +13,11 @@ const server = http.createServer(app);
 
 const io = new Server(server);
 
-// app.use(express.static("./client/build"));
+app.use(express.static("./client/build"));
 
-// app.use((req, res, next) => {
-//   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
-// });
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 
