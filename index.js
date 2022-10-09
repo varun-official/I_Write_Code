@@ -4,6 +4,7 @@ const express = require("express");
 const http = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
+// const { c, cpp, node, python, java } = require("compile-run");
 
 const ACTIONS = require("./Actions");
 
@@ -12,11 +13,11 @@ const server = http.createServer(app);
 
 const io = new Server(server);
 
-app.use(express.static("./client/build"));
+// app.use(express.static("./client/build"));
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
-});
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+// });
 
 const PORT = process.env.PORT || 5000;
 
@@ -75,4 +76,13 @@ io.on("connection", (socket) => {
 
 server.listen(PORT, () => {
   console.log("Sever up and Running at " + PORT);
+  //   const sourcecode = `cout<<"ki";`;
+  // let resultPromise = cpp.runSource(sourcecode);
+  // resultPromise
+  //   .then((result) => {
+  //     console.log(result);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 });
