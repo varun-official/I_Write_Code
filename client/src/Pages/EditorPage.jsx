@@ -1,6 +1,8 @@
 /** @format */
 
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+
 import logo from "../assets/logo.png";
 import "./EditorPage.css";
 import { toast } from "react-hot-toast";
@@ -32,6 +34,16 @@ const EditorPage = () => {
         toast.error("Socket connection failed, try again later.");
         navigate("/");
       }
+
+      const featchcode = async () => {
+        const url = process.env.REACT_APP_BACKEND_URL + `codehistory/${roomId}`;
+        // const url =
+        //   process.env.REACT_APP_BACKEND_URL +
+        //   `codehistory/62895a63-fe91-461d-844b-ab645cc78655`;
+        const res = await axios.get(url);
+        if (res?.data?.code) codeRef.current = res.data.code;
+      };
+      featchcode();
 
       socketRef.current.emit(ACTIONS.JOIN, {
         roomId,
@@ -85,6 +97,16 @@ const EditorPage = () => {
     }
   };
 
+  const saveCode = async () => {
+    const url = process.env.REACT_APP_BACKEND_URL + `codehistory/push`;
+
+    const code = await axios.patch(url, {
+      roomId,
+      code: codeRef.current,
+    });
+    console.log(code?.data);
+  };
+
   const leaveRoom = async () => {
     navigate("/");
   };
@@ -102,12 +124,20 @@ const EditorPage = () => {
           </div>
         </div>
         <div className="leftBottom">
-          <button className="leftBtn copy" onClick={copyRoomId}>
-            Copy Room Id
-          </button>
-          <button className="leftBtn leave" onClick={leaveRoom}>
-            Leave Room
-          </button>
+          <div className="leftBottomBtn">
+            <button className="saveBtn" onClick={saveCode}>
+              save
+            </button>
+          </div>
+
+          <div className="leftBottomBtns">
+            <button className="leftBtn copy" onClick={copyRoomId}>
+              Copy Room Id
+            </button>
+            <button className="leftBtn leave" onClick={leaveRoom}>
+              Leave Room
+            </button>
+          </div>
         </div>
       </div>
       <div className="rightWrapper">

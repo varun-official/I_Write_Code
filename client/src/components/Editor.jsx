@@ -44,7 +44,6 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
 
     async function init2() {
       var IDES = document.querySelector(".CodeMirror, .cm-s-dracula");
-      console.log(IDES);
 
       for (var i = 1; i < IDES.length; i++) {
         IDES[i].style.display = "none";
