@@ -5,12 +5,21 @@ const routes = express.Router();
 
 const CodeHistory = require("../models/CodeHistory");
 
-routes.post("/push", async (req, res) => {
+routes.patch("/push", async (req, res) => {
   const newCode = new CodeHistory(req.body);
-  //   console.log(newCode);
+  const roomId = newCode.roomId;
   try {
-    const saveCode = await newCode.save();
-    return res.status(201).send(saveCode);
+    const iscode = await CodeHistory.findOne({ roomId });
+    if (iscode) {
+      const saveCode = await CodeHistory.findOneAndUpdate(
+        { roomId: newCode.roomId },
+        { $set: { code: newCode.code } },
+        { new: true }
+      );
+      return res.status(201).send({ saveCode });
+    }
+    const savedCode = await newCode.save();
+    return res.status(200).send(savedCode);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send(error);

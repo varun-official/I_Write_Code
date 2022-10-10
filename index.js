@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true,}));
+app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use("/codehistory", codeHistoryRoute);
@@ -69,15 +69,6 @@ io.on("connection", (socket) => {
     const clients = getAllConnectedClients(roomId);
 
     clients.forEach(({ socketId }) => {
-      // var code = "";
-      // const featchcode = async () => {
-      //   const { data } = await axios.get(
-      //     "http://localhost:5000/codehistory/62895a63-fe91-461d-844b-ab645cc78655"
-      //   );
-      //   code = await data;
-      //   console.log(code.code);
-      // };
-      // featchcode();
       io.to(socketId).emit(ACTIONS.JOINED, {
         clients,
         userName,
