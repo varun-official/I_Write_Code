@@ -65,8 +65,8 @@
   border: none;
   cursor: pointer;
   border-radius: 6px;
-  font-size: 1.2rem;
-  background: rgb(68, 68, 91);
+  font-size: 1.4rem;
+  background: rgb(99, 99, 212);
 }
 
 .saveBtn:hover {

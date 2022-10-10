@@ -104,7 +104,7 @@ const EditorPage = () => {
       roomId,
       code: codeRef.current,
     });
-    console.log(code?.data);
+    toast.success("Code History saved.");
   };
 
   const leaveRoom = async () => {
