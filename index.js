@@ -6,6 +6,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+const Redis = require("redis");
 const cors = require("cors");
 const { Server } = require("socket.io");
 
@@ -47,28 +48,72 @@ mongoose
     console.log("DB Connection established");
   });
 
+const client = Redis.createClient({
+  url: `redis://default:${process.env.REDIS_PASSWORD}@${process.env.REDIS_URI}:${process.env.REDIS_PORT}`,
+});
+
+client.on("connect", () => console.log("Redis connected"));
+client.on("error", (err) => console.log("Redis Connection Error", err));
+client.connect();
 const userSocketMap = {};
-function getAllConnectedClients(roomId) {
-  // Map
-  return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
-    (socketId) => {
-      return {
-        socketId,
-        userName: userSocketMap[socketId],
-      };
-    }
-  );
-}
+
+// client.setEx("name", 100, "varun");
+// client.lPush("co", "vivek");
+// client.expire("co", 100);
+
+// const hi = async () => {
+//   const data = await client.get("name");
+//   console.log(data);
+//   console.log(await client.ttl("co"));
+// };
+// hi();
+// setTimeout(async () => {
+//   console.log(await client.ttl("co"));
+// }, 3000);
+
+// function getAllConnectedClients(roomId) {
+//   // Map
+//   return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
+//     (socketId) => {
+//       return {
+//         socketId,
+//         userName: userSocketMap[socketId],
+//       };
+//     }
+//   );
+// }
+
+const getAllRedisClints = async (roomId) => {
+  const clients = await client.lRange(roomId, 0, -1);
+  const data = [];
+  clients.map((c) => data.push(JSON.parse(c)));
+  data.map((d) => {
+    userSocketMap[d.socketId] = d.userName;
+  });
+  return data;
+};
 
 io.on("connection", (socket) => {
   console.log("Socket connected", socket.id);
 
-  socket.on(ACTIONS.JOIN, ({ roomId, userName }) => {
-    userSocketMap[socket.id] = userName;
+  socket.on(ACTIONS.JOIN, async ({ roomId, userName }) => {
+    // userSocketMap[socket.id] = userName;
+    const data = {
+      socketId: socket.id,
+      userName,
+    };
+    if (client.exists(roomId)) {
+      client.lPush(roomId, JSON.stringify(data));
+    } else {
+      client.lPush(roomId, JSON.stringify(data));
+      client.expire(roomId, 36000);
+    }
     socket.join(roomId);
-    const clients = getAllConnectedClients(roomId);
+    // const clients = getAllConnectedClients(roomId);
 
-    clients.forEach(({ socketId }) => {
+    const clients = await getAllRedisClints(roomId);
+
+    clients?.map(({ socketId }) => {
       io.to(socketId).emit(ACTIONS.JOINED, {
         clients,
         userName,
