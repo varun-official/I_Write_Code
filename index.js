@@ -132,12 +132,20 @@ io.on("connection", (socket) => {
 
   socket.on("disconnecting", () => {
     const rooms = [...socket.rooms];
+    console.log(rooms);
 
     rooms.forEach((roomId) => {
       socket.in(roomId).emit(ACTIONS.DISCONNECTED, {
         socketId: socket.id,
         userName: userSocketMap[socket.id],
       });
+
+      const data = {
+        socketId: socket.id,
+        userName: userSocketMap[socket.id],
+      };
+
+      client.LREM(roomId, 1, JSON.stringify(data));
     });
 
     delete userSocketMap[socket.id];
