@@ -22,7 +22,7 @@ const EditorPage = () => {
   const langRef = useRef("null");
   const themeRef = useRef(null);
 
-  const [lang, setLang] = useState("cpp");
+  const [lang, setLang] = useState("javascript");
   const [theme, setTheme] = useState("dracula");
 
   const location = useLocation();
@@ -149,25 +149,34 @@ const EditorPage = () => {
       <div className="rightWrapper">
         <div className="topBar">
           <div className="topBarLeft">
-            <Menu menuButton={<MenuButton>{lang}</MenuButton>}>
+            <Menu menuButton={<MenuButton>{lang.toUpperCase()}</MenuButton>}>
               <MenuRadioGroup
                 value={lang}
                 onRadioChange={(e) => setLang(e.value)}
               >
-                <MenuItem type="radio" value="Cpp">
-                  Cpp
-                </MenuItem>
                 <MenuItem type="radio" value="javascript">
                   JavaScript
                 </MenuItem>
-                <MenuItem type="radio" value="Python">
-                  Python
+                <MenuItem type="radio" value="cpp">
+                  Cpp
+                </MenuItem>
+                <MenuItem type="radio" value="c">
+                  C
+                </MenuItem>
+                <MenuItem type="radio" value="go">
+                  Go
+                </MenuItem>
+                <MenuItem type="radio" value="swift">
+                  Swift
+                </MenuItem>
+                <MenuItem type="radio" value="php">
+                  PHP
                 </MenuItem>
               </MenuRadioGroup>
             </Menu>
             <Menu
               className="langSelect"
-              menuButton={<MenuButton>{theme}</MenuButton>}
+              menuButton={<MenuButton>{theme.toUpperCase()}</MenuButton>}
             >
               <MenuRadioGroup
                 value={theme}
@@ -179,14 +188,14 @@ const EditorPage = () => {
                 <MenuItem type="radio" value="3024-night">
                   3024-night
                 </MenuItem>
-                <MenuItem type="radio" value="material-palenight">
-                  Material-palenight
+                <MenuItem type="radio" value="rubyblue">
+                  Rubyblue
                 </MenuItem>
                 <MenuItem type="radio" value="xq-dark">
                   Xq-dark
                 </MenuItem>
-                <MenuItem type="radio" value="material-darker">
-                  Material-darker
+                <MenuItem type="radio" value="nord">
+                  nord
                 </MenuItem>
                 <MenuItem type="radio" value="neo">
                   Neo
@@ -200,6 +209,7 @@ const EditorPage = () => {
           roomId={roomId}
           onCodeChange={(code) => (codeRef.current = code)}
           lang={lang}
+          theme={theme}
         />
       </div>
     </div>

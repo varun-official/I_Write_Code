@@ -7,14 +7,10 @@ import "codemirror/lib/codemirror.css";
 
 import "codemirror/theme/dracula.css";
 import "codemirror/theme/3024-night.css";
-import "codemirror/theme/material-palenight.css";
+import "codemirror/theme/rubyblue.css";
 import "codemirror/theme/xq-dark.css";
-import "codemirror/theme/material-darker.css";
+import "codemirror/theme/nord.css";
 import "codemirror/theme/neo.css";
-
-
-
-
 
 import "codemirror/mode/clike/clike";
 import "codemirror/mode/python/python";
@@ -31,7 +27,7 @@ import "codemirror/addon/runmode/runmode";
 import "./Editor.css";
 import ACTIONS from "../Actions";
 
-const Editor = ({ socketRef, roomId, onCodeChange, lang }) => {
+const Editor = ({ socketRef, roomId, onCodeChange, lang, theme }) => {
   const editorRef = useRef(null);
 
   const getThemeForLanguage = async (lang) => {
@@ -60,6 +56,13 @@ const Editor = ({ socketRef, roomId, onCodeChange, lang }) => {
     };
     changeLang();
   }, [lang]);
+
+  useEffect(() => {
+    const changetheme = async () => {
+      editorRef.current.setOption("theme", theme);
+    };
+    changetheme();
+  }, [theme]);
 
   useEffect(() => {
     async function init() {
