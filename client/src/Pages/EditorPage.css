@@ -99,6 +99,26 @@
 }
 .topBar {
   width: 100%;
-  height: 8rem;
-  background: rebeccapurple;
+  height: 4rem;
+  background: #1c1e29;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topBarLeft {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5 rem;
+}
+.szh-menu-button {
+  width: 100px;
+  height: 3rem;
+  margin: 0.5rem 2rem;
+  font-size: 1.4rem;
+  background: #1c1e29;
+  outline: none;
+  border: 1px solid white;
 }

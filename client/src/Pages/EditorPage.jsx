@@ -3,6 +3,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
+import { Menu, MenuItem, MenuButton, MenuRadioGroup } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/index.css";
+
 import logo from "../assets/logo.png";
 import "./EditorPage.css";
 import { toast } from "react-hot-toast";
@@ -15,6 +18,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 const EditorPage = () => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
+
+  const langRef = useRef("null");
+  const themeRef = useRef(null);
+
+  const [lang, setLang] = useState("cpp");
+  const [theme, setTheme] = useState("dracula");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,9 +46,6 @@ const EditorPage = () => {
 
       const featchcode = async () => {
         const url = process.env.REACT_APP_BACKEND_URL + `codehistory/${roomId}`;
-        // const url =
-        //   process.env.REACT_APP_BACKEND_URL +
-        //   `codehistory/62895a63-fe91-461d-844b-ab645cc78655`;
         const res = await axios.get(url);
         if (res?.data?.code) codeRef.current = res.data.code;
       };
@@ -141,11 +147,50 @@ const EditorPage = () => {
         </div>
       </div>
       <div className="rightWrapper">
-        <div className="topBar"></div>
+        <div className="topBar">
+          <div className="topBarLeft">
+            <Menu menuButton={<MenuButton>{lang}</MenuButton>}>
+              <MenuRadioGroup
+                value={lang}
+                onRadioChange={(e) => setLang(e.value)}
+              >
+                <MenuItem type="radio" value="Cpp">
+                  Cpp
+                </MenuItem>
+                <MenuItem type="radio" value="javascript">
+                  JavaScript
+                </MenuItem>
+                <MenuItem type="radio" value="Python">
+                  Python
+                </MenuItem>
+              </MenuRadioGroup>
+            </Menu>
+            <Menu
+              className="langSelect"
+              menuButton={<MenuButton>{theme}</MenuButton>}
+            >
+              <MenuRadioGroup
+                value={theme}
+                onRadioChange={(e) => setTheme(e.value)}
+              >
+                <MenuItem type="radio" value="dracula">
+                  Cpp
+                </MenuItem>
+                <MenuItem type="radio" value="JavaScript">
+                  JavaScript
+                </MenuItem>
+                <MenuItem type="radio" value="Python">
+                  Python
+                </MenuItem>
+              </MenuRadioGroup>
+            </Menu>
+          </div>
+        </div>
         <Editor
           socketRef={socketRef}
           roomId={roomId}
           onCodeChange={(code) => (codeRef.current = code)}
+          lang={lang}
         />
       </div>
     </div>
