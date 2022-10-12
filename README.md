@@ -13,13 +13,14 @@ A real-time collaborative coding platform with Code sync.
 ## Features
 
 - Realtime synced code editor (single cursor)
-- currently supports 1 languages(JavaScript) and more languages coming soon
+- currently supports 7 languages.
+- (C++, swift, Python, Go, C, PHP,JavaScript)
+- customizable editor themes(More than 5 currently)
 - code History saved in Database, one can restore saved code back using roomId
-- User cache using Redis to optimize query
+- User cache storage using Redis to response time.
 
 ## Coming Soon
 
-- More languages support(C++, Java, Python, Go, C, PHP)
 - Built-in compiler
 - Download code to local storage
 
