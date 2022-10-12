@@ -113,10 +113,21 @@
   align-items: center;
   gap: 5 rem;
 }
+.topBarLeftItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 2.2rem;
+}
+.topBarLeftItem h6 {
+  font-style: italic;
+  font-weight: 100;
+  color: lightgrey;
+}
 .szh-menu-button {
   width: 100px;
   height: 3rem;
-  margin: 0.5rem 2rem;
+  margin: 0.5rem 0.3rem;
   font-size: 1.4rem;
   background: #1c1e29;
   outline: none;

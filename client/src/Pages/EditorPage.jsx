@@ -19,11 +19,8 @@ const EditorPage = () => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
 
-  const langRef = useRef("null");
-  const themeRef = useRef(null);
-
   const [lang, setLang] = useState("javascript");
-  const [theme, setTheme] = useState("dracula");
+  const [theme, setTheme] = useState("3024-night");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -149,59 +146,68 @@ const EditorPage = () => {
       <div className="rightWrapper">
         <div className="topBar">
           <div className="topBarLeft">
-            <Menu menuButton={<MenuButton>{lang.toUpperCase()}</MenuButton>}>
-              <MenuRadioGroup
-                value={lang}
-                onRadioChange={(e) => setLang(e.value)}
+            <div className="topBarLeftItem">
+              <h6>Language: </h6>
+              <Menu menuButton={<MenuButton>{lang.toUpperCase()}</MenuButton>}>
+                <MenuRadioGroup
+                  value={lang}
+                  onRadioChange={(e) => setLang(e.value)}
+                >
+                  <MenuItem type="radio" value="javascript">
+                    JavaScript
+                  </MenuItem>
+                  <MenuItem type="radio" value="cpp">
+                    Cpp
+                  </MenuItem>
+                  <MenuItem type="radio" value="c">
+                    C
+                  </MenuItem>
+                  <MenuItem type="radio" value="python">
+                    Python
+                  </MenuItem>
+                  <MenuItem type="radio" value="go">
+                    Go
+                  </MenuItem>
+                  <MenuItem type="radio" value="swift">
+                    Swift
+                  </MenuItem>
+                  <MenuItem type="radio" value="php">
+                    PHP
+                  </MenuItem>
+                </MenuRadioGroup>
+              </Menu>
+            </div>
+            <div className="topBarLeftItem">
+              <h6>Theme: </h6>
+              <Menu
+                className="langSelect"
+                menuButton={<MenuButton>{theme.toUpperCase()}</MenuButton>}
               >
-                <MenuItem type="radio" value="javascript">
-                  JavaScript
-                </MenuItem>
-                <MenuItem type="radio" value="cpp">
-                  Cpp
-                </MenuItem>
-                <MenuItem type="radio" value="c">
-                  C
-                </MenuItem>
-                <MenuItem type="radio" value="go">
-                  Go
-                </MenuItem>
-                <MenuItem type="radio" value="swift">
-                  Swift
-                </MenuItem>
-                <MenuItem type="radio" value="php">
-                  PHP
-                </MenuItem>
-              </MenuRadioGroup>
-            </Menu>
-            <Menu
-              className="langSelect"
-              menuButton={<MenuButton>{theme.toUpperCase()}</MenuButton>}
-            >
-              <MenuRadioGroup
-                value={theme}
-                onRadioChange={(e) => setTheme(e.value)}
-              >
-                <MenuItem type="radio" value="dracula">
-                  Dracula
-                </MenuItem>
-                <MenuItem type="radio" value="3024-night">
-                  3024-night
-                </MenuItem>
-                <MenuItem type="radio" value="rubyblue">
-                  Rubyblue
-                </MenuItem>
-                <MenuItem type="radio" value="xq-dark">
-                  Xq-dark
-                </MenuItem>
-                <MenuItem type="radio" value="nord">
-                  nord
-                </MenuItem>
-                <MenuItem type="radio" value="neo">
-                  Neo
-                </MenuItem>
-              </MenuRadioGroup>
-            </Menu>
+                <MenuRadioGroup
+                  value={theme}
+                  onRadioChange={(e) => setTheme(e.value)}
+                >
+                  <MenuItem type="radio" value="dracula">
+                    Dracula
+                  </MenuItem>
+                  <MenuItem type="radio" value="3024-night">
+                    3024-night
+                  </MenuItem>
+                  <MenuItem type="radio" value="rubyblue">
+                    Rubyblue
+                  </MenuItem>
+                  <MenuItem type="radio" value="xq-dark">
+                    Xq-dark
+                  </MenuItem>
+                  <MenuItem type="radio" value="nord">
+                    nord
+                  </MenuItem>
+                  <MenuItem type="radio" value="neo">
+                    Neo
+                  </MenuItem>
+                </MenuRadioGroup>
+              </Menu>
+            </div>
           </div>
         </div>
         <Editor

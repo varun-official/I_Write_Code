@@ -44,6 +44,8 @@ const Editor = ({ socketRef, roomId, onCodeChange, lang, theme }) => {
         return "swift";
       case "php":
         return "php";
+      case "python":
+        return "python";
       default:
         return "javascript";
     }
@@ -70,7 +72,7 @@ const Editor = ({ socketRef, roomId, onCodeChange, lang, theme }) => {
         document.getElementById("realTimeEditor"),
         {
           mode: { name: getThemeForLanguage(lang) },
-          theme: "3024-night",
+          theme: theme,
           keyMap: "sublime",
           showHint: true,
           autoCloseTags: true,
