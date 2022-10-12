@@ -174,13 +174,22 @@ const EditorPage = () => {
                 onRadioChange={(e) => setTheme(e.value)}
               >
                 <MenuItem type="radio" value="dracula">
-                  Cpp
+                  Dracula
                 </MenuItem>
-                <MenuItem type="radio" value="JavaScript">
-                  JavaScript
+                <MenuItem type="radio" value="3024-night">
+                  3024-night
                 </MenuItem>
-                <MenuItem type="radio" value="Python">
-                  Python
+                <MenuItem type="radio" value="material-palenight">
+                  Material-palenight
+                </MenuItem>
+                <MenuItem type="radio" value="xq-dark">
+                  Xq-dark
+                </MenuItem>
+                <MenuItem type="radio" value="material-darker">
+                  Material-darker
+                </MenuItem>
+                <MenuItem type="radio" value="neo">
+                  Neo
                 </MenuItem>
               </MenuRadioGroup>
             </Menu>

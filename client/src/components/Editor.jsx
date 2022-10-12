@@ -4,7 +4,18 @@ import React, { useEffect, useRef } from "react";
 
 import Codemirror from "codemirror";
 import "codemirror/lib/codemirror.css";
+
 import "codemirror/theme/dracula.css";
+import "codemirror/theme/3024-night.css";
+import "codemirror/theme/material-palenight.css";
+import "codemirror/theme/xq-dark.css";
+import "codemirror/theme/material-darker.css";
+import "codemirror/theme/neo.css";
+
+
+
+
+
 import "codemirror/mode/clike/clike";
 import "codemirror/mode/python/python";
 import "codemirror/mode/go/go";
@@ -23,7 +34,7 @@ import ACTIONS from "../Actions";
 const Editor = ({ socketRef, roomId, onCodeChange, lang }) => {
   const editorRef = useRef(null);
 
-  const getThemeForLanguage = (lang) => {
+  const getThemeForLanguage = async (lang) => {
     switch (lang) {
       case "cpp":
         return "clike";
@@ -43,25 +54,30 @@ const Editor = ({ socketRef, roomId, onCodeChange, lang }) => {
   };
 
   useEffect(() => {
-          console.log(lang);
-          editorRef.current = Codemirror.fromTextArea(
-            document.getElementById("realTimeEditor"),
-            {
-              mode: { name: getThemeForLanguage(lang) },
-              theme: "dracula",
-              keyMap: "sublime",
-              showHint: true,
-              autoCloseTags: true,
-              autoCloseBrackets: true,
-              lineNumbers: true,
-              lineWrapping: true,
-              indentWithTabs: true,
-            }
-          );
-  },[lang])
+    const changeLang = async () => {
+      const current = await getThemeForLanguage(lang);
+      editorRef.current.setOption("mode", current);
+    };
+    changeLang();
+  }, [lang]);
 
   useEffect(() => {
     async function init() {
+      editorRef.current = Codemirror.fromTextArea(
+        document.getElementById("realTimeEditor"),
+        {
+          mode: { name: getThemeForLanguage(lang) },
+          theme: "3024-night",
+          keyMap: "sublime",
+          showHint: true,
+          autoCloseTags: true,
+          autoCloseBrackets: true,
+          lineNumbers: true,
+          lineWrapping: true,
+          indentWithTabs: true,
+        }
+      );
+
       editorRef.current.on("change", (instance, changes) => {
         const { origin } = changes;
         const code = instance.getValue();
