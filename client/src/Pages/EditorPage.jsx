@@ -211,7 +211,7 @@ const EditorPage = () => {
             </div>
           </div>
         </div>
-        <Split className="split" sizes={[80, 20]}>
+        <Split className="split" minSize={150} snapOffset={0} dragInterval={4}>
           <Editor
             socketRef={socketRef}
             roomId={roomId}
