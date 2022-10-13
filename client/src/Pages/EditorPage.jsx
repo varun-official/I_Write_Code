@@ -23,6 +23,10 @@ const EditorPage = () => {
   const [lang, setLang] = useState("javascript");
   const [theme, setTheme] = useState("3024-night");
 
+  const [input, setInput] = useState("");
+  const [output, setOuput] = useState("");
+  const [isdisabled, setIsDisabled] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
   const { roomId } = useParams();
@@ -45,7 +49,10 @@ const EditorPage = () => {
       const featchcode = async () => {
         const url = process.env.REACT_APP_BACKEND_URL + `codehistory/${roomId}`;
         const res = await axios.get(url);
-        if (res?.data?.code) codeRef.current = res.data.code;
+        if (res?.data?.code) {
+          codeRef.current = res.data.code;
+          setLang(res.data.language);
+        }
       };
       featchcode();
 
@@ -107,9 +114,14 @@ const EditorPage = () => {
     const code = await axios.patch(url, {
       roomId,
       code: codeRef.current,
+      language: lang,
     });
     toast.success("Code History saved.");
   };
+
+  const runCodeOnline = async () => {
+    
+  }
 
   const leaveRoom = async () => {
     navigate("/");
@@ -210,8 +222,17 @@ const EditorPage = () => {
               </Menu>
             </div>
           </div>
+          <button className="runBtn" disabled={isdisabled} onClick={runCodeOnline}>
+            Run
+          </button>
         </div>
-        <Split className="split" minSize={100} snapOffset={0} dragInterval={4}>
+        <Split
+          className="split"
+          minSize={300}
+          snapOffset={0}
+          dragInterval={4}
+          sizes={[80, 20]}
+        >
           <div>
             <Editor
               socketRef={socketRef}
@@ -226,13 +247,17 @@ const EditorPage = () => {
             <textarea
               className="inputOutputtextarea"
               cols="30"
-              rows="10"
+              rows="13"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             ></textarea>
-            <h6>output</h6>
+            <h6>Output</h6>
             <textarea
               className="inputOutputtextarea"
               cols="30"
-              rows="10"
+              rows="17"
+              value={output}
+              disabled={true}
             ></textarea>
           </div>
         </Split>
