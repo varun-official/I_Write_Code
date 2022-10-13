@@ -211,14 +211,16 @@ const EditorPage = () => {
             </div>
           </div>
         </div>
-        <Split className="split" minSize={150} snapOffset={0} dragInterval={4}>
-          <Editor
-            socketRef={socketRef}
-            roomId={roomId}
-            onCodeChange={(code) => (codeRef.current = code)}
-            lang={lang}
-            theme={theme}
-          />
+        <Split className="split" minSize={100} snapOffset={0} dragInterval={4}>
+          <div>
+            <Editor
+              socketRef={socketRef}
+              roomId={roomId}
+              onCodeChange={(code) => (codeRef.current = code)}
+              lang={lang}
+              theme={theme}
+            />
+          </div>
           <div className="inputOutput">
             <h6>Input</h6>
             <textarea
