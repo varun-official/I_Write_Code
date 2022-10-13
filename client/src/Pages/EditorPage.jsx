@@ -211,7 +211,7 @@ const EditorPage = () => {
             </div>
           </div>
         </div>
-        <Split className="split" sizes={[20, 80]}>
+        <Split className="split" sizes={[80, 20]}>
           <Editor
             socketRef={socketRef}
             roomId={roomId}
@@ -219,8 +219,19 @@ const EditorPage = () => {
             lang={lang}
             theme={theme}
           />
-          <div>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+          <div className="inputOutput">
+            <h6>Input</h6>
+            <textarea
+              className="inputOutputtextarea"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <h6>output</h6>
+            <textarea
+              className="inputOutputtextarea"
+              cols="30"
+              rows="10"
+            ></textarea>
           </div>
         </Split>
       </div>
