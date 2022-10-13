@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import Split from "react-split";
 
 import { Menu, MenuItem, MenuButton, MenuRadioGroup } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
@@ -210,13 +211,18 @@ const EditorPage = () => {
             </div>
           </div>
         </div>
-        <Editor
-          socketRef={socketRef}
-          roomId={roomId}
-          onCodeChange={(code) => (codeRef.current = code)}
-          lang={lang}
-          theme={theme}
-        />
+        <Split className="split" sizes={[20, 80]}>
+          <Editor
+            socketRef={socketRef}
+            roomId={roomId}
+            onCodeChange={(code) => (codeRef.current = code)}
+            lang={lang}
+            theme={theme}
+          />
+          <div>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+          </div>
+        </Split>
       </div>
     </div>
   );
