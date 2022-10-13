@@ -151,7 +151,7 @@
 }
 .inputOutput {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .inputOutputtextarea {
   margin-bottom: 30px;
