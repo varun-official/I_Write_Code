@@ -45,12 +45,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/codehistory", codeHistoryRoute);
 app.use("/code", codeRunRoute);
 
-// if (process.env.NODE_ENV == "production") {
-app.use(express.static("./client/build"));
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
-});
-// }
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("./client/build"));
+  app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
