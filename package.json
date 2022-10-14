@@ -9,7 +9,8 @@
     "start": "node ./index.js",
     "client-install": "cd ./client && npm i --force",
     "client-build": "cd ./client && npm run build",
-    "heroku-postbuild": "npm run client-install && npm run client-build"
+    "heroku-postbuild": "npm run client-install && npm run client-build",
+    "local-postbuild": "npm run client-install && npm run client-build && npm run dev"
   },
   "keywords": [],
   "author": "",
