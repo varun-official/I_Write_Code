@@ -12,7 +12,7 @@
 
 import express from "express";
 import http from "http";
-import path from "path";
+import * as path from "path";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import Redis from "Redis";
@@ -25,7 +25,7 @@ import { Server } from "socket.io";
 
 import ACTIONS from "./Actions.js";
 import codeHistoryRoute from "./routes/CodeHistory.js";
-// import codeRunRoute from "./routes/CodeRun.js";
+import codeRunRoute from "./routes/CodeRun.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -43,12 +43,13 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use("/codehistory", codeHistoryRoute);
-// app.use("/code", codeRunRoute);
+app.use("/code", codeRunRoute);
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("./client/build"));
-  app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+  app.get("*", (req, res) => {
+    const dirname = path.resolve(path.dirname(""));
+    res.sendFile(path.resolve(dirname, "client", "build", "index.html"));
   });
 }
 
