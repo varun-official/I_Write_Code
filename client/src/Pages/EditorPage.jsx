@@ -120,8 +120,19 @@ const EditorPage = () => {
   };
 
   const runCodeOnline = async () => {
-    
-  }
+    setIsDisabled(true);
+    setOuput("Running......");
+    const url = process.env.REACT_APP_BACKEND_URL + `code/run`;
+    const Result = await axios.post(url, {
+      code: codeRef.current,
+      language: lang,
+      stdin: input,
+    });
+
+    console.log(Result.data);
+    setOuput(Result.data?.output);
+    setIsDisabled(false);
+  };
 
   const leaveRoom = async () => {
     navigate("/");
@@ -222,7 +233,11 @@ const EditorPage = () => {
               </Menu>
             </div>
           </div>
-          <button className="runBtn" disabled={isdisabled} onClick={runCodeOnline}>
+          <button
+            className="runBtn"
+            disabled={isdisabled}
+            onClick={runCodeOnline}
+          >
             Run
           </button>
         </div>
