@@ -1,3 +1,4 @@
+/** @format */
 
 const ACTIONS = {
   JOIN: "join",
@@ -8,4 +9,5 @@ const ACTIONS = {
   LEAVE: "leave",
 };
 
-module.exports = ACTIONS;
+// module.exports = ACTIONS;
+export default ACTIONS;

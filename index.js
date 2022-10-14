@@ -1,22 +1,37 @@
 /** @format */
 
-const express = require("express");
-const http = require("http");
-const path = require("path");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const axios = require("axios");
-const Redis = require("redis");
-const cors = require("cors");
-const { Server } = require("socket.io");
+// const express = require("express");
+// const http = require("http");
+// const path = require("path");
+// const mongoose = require("mongoose");
+// const bodyParser = require("body-parser");
+// const axios = require("axios");
+// const Redis = require("redis");
+// const cors = require("cors");
+// const { Server } = require("socket.io");
 
-const ACTIONS = require("./Actions");
-const codeHistoryRoute = require("./routes/CodeHistory");
+import express from "express";
+import http from "http";
+import path from "path";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import Redis from "Redis";
+import cors from "cors";
+import { Server } from "socket.io";
+
+// const ACTIONS = require("./Actions");
+// const codeHistoryRoute = require("./routes/CodeHistory").default;
+// const codeRunRoute = require("./routes/CodeRun").default;
+
+import ACTIONS from "./Actions.js";
+import codeHistoryRoute from "./routes/CodeHistory.js";
+import codeRunRoute from "./routes/CodeRun.js";
 
 const app = express();
 const server = http.createServer(app);
 
-require("dotenv").config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const io = new Server(server);
 
@@ -28,6 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use("/codehistory", codeHistoryRoute);
+app.use("/code", codeRunRoute);
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("./client/build"));

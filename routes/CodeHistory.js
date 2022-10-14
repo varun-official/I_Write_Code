@@ -1,11 +1,13 @@
 /** @format */
 
-const express = require("express");
-const routes = express.Router();
+import express from "express";
+const codeHistoryRoute = express.Router();
 
-const CodeHistory = require("../models/CodeHistory");
+// const CodeHistory = require("../models/CodeHistory");
 
-routes.patch("/push", async (req, res) => {
+import CodeHistory from "../models/CodeHistory.js";
+
+codeHistoryRoute.patch("/push", async (req, res) => {
   const newCode = new CodeHistory(req.body);
   const roomId = newCode.roomId;
   try {
@@ -26,7 +28,7 @@ routes.patch("/push", async (req, res) => {
   }
 });
 
-routes.get("/:roomId", async (req, res) => {
+codeHistoryRoute.get("/:roomId", async (req, res) => {
   const roomId = req.params.roomId;
   try {
     const code = await CodeHistory.findOne({ roomId: roomId });
@@ -40,4 +42,5 @@ routes.get("/:roomId", async (req, res) => {
   }
 });
 
-module.exports = routes;
+// module.exports = routes;
+export default codeHistoryRoute;
