@@ -33,13 +33,21 @@ const server = http.createServer(app);
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const io = new Server(server);
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const io = new Server(server, {
+  cors: {
+    origins: ["*"],
+    methods: ["GET", "POST"],
+    transports: ["websocket", "polling"],
+    credentials: true,
+  },
+  allowEIO3: true,
+});
 
 //Routes
 app.use("/codehistory", codeHistoryRoute);
