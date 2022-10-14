@@ -129,8 +129,7 @@ const EditorPage = () => {
       stdin: input,
     });
 
-    console.log(Result.data);
-    setOuput(Result.data?.output);
+    setOuput(Result?.data?.output);
     setIsDisabled(false);
   };
 
