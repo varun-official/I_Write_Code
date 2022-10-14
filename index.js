@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use("/codehistory", codeHistoryRoute);
-app.use("/code", codeRunRoute);
+// app.use("/code", codeRunRoute);
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("./client/build"));
