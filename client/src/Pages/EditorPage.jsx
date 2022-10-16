@@ -179,8 +179,8 @@ const EditorPage = () => {
                   <MenuItem type="radio" value="javascript">
                     JavaScript
                   </MenuItem>
-                  <MenuItem type="radio" value="cpp">
-                    Cpp
+                  <MenuItem type="radio" value="c++">
+                    C++
                   </MenuItem>
                   <MenuItem type="radio" value="c">
                     C

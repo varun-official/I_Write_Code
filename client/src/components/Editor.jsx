@@ -32,7 +32,7 @@ const Editor = ({ socketRef, roomId, onCodeChange, lang, theme }) => {
 
   const getThemeForLanguage = async (lang) => {
     switch (lang) {
-      case "cpp":
+      case "c++":
         return "clike";
       case "c":
         return "clike";
