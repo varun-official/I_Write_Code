@@ -24,7 +24,7 @@ const EditorPage = () => {
   const [theme, setTheme] = useState("3024-night");
 
   const [input, setInput] = useState("");
-  const [output, setOuput] = useState("");
+  const [output, setOuput] = useState("Waiting.....");
   const [isdisabled, setIsDisabled] = useState(false);
 
   const location = useLocation();
@@ -128,8 +128,11 @@ const EditorPage = () => {
       language: lang,
       stdin: input,
     });
-
-    setOuput(Result?.data?.output);
+    var res =
+      Result?.data?.stderr +
+      (Result?.data?.signal ? Result?.data?.signal : "") +
+      Result?.data?.stdout;
+    setOuput(res);
     setIsDisabled(false);
   };
 
