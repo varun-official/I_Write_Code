@@ -15,7 +15,7 @@ import http from "http";
 import * as path from "path";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import Redis from "Redis";
+import { createClient } from "redis";
 import cors from "cors";
 import { Server } from "socket.io";
 
@@ -73,7 +73,7 @@ mongoose
     console.log("DB Connection established");
   });
 
-const client = Redis.createClient({
+const client = createClient({
   url: `redis://default:${process.env.REDIS_PASSWORD}@${process.env.REDIS_URI}:${process.env.REDIS_PORT}`,
 });
 
