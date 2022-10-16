@@ -6,6 +6,8 @@ import Split from "react-split";
 
 import { Menu, MenuItem, MenuButton, MenuRadioGroup } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
+import { BsFillPlayFill } from "react-icons/bs";
+import { BiRun } from "react-icons/bi";
 
 import logo from "../assets/logo.png";
 import "./EditorPage.css";
@@ -240,7 +242,7 @@ const EditorPage = () => {
             disabled={isdisabled}
             onClick={runCodeOnline}
           >
-            Run
+            Run {isdisabled ? <BsFillPlayFill /> : <BiRun />}
           </button>
         </div>
         <Split
