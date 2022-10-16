@@ -17,11 +17,24 @@ A real-time collaborative coding platform with Code sync.
 - (C++, swift, Python, Go, C, PHP,JavaScript)
 - customizable editor themes(More than 5 currently)
 - code History saved in Database, one can restore saved code back using roomId
-- User cache storage using Redis to response time.
-
-## Coming Soon
-
+- User details stored in Redis to manage and efficiently maintain user connections.
 - Built-in compiler
-- Download code to local storage
+
+## Installation
+
+Codewired requires [Node.js](https://nodejs.org/) to run.
+Install the dependencies and devDependencies and start the server and client.
+
+## Environment vars
+
+| Key                   | Value                                                               |
+| --------------------- | ------------------------------------------------------------------- |
+| MONGODB_URL           | MongoDB [Atlas](https://www.mongodb.com/cloud/atlas/register)/local |
+| NODE_ENV              | `dev`, `prod`                                                       |
+| REACT_APP_BACKEND_URL | server endpoint with port                                           |
+| REACT_APP_ENV         | `dev`, `prod`                                                       |
+| REDIS_URI             | Redis [redislabs](https://app.redislabs.com/#/login)/local          |
+| REDIS_PASSWORD        | Redis [redislabs](https://app.redislabs.com/#/login)/local          |
+| REDIS_PORT            | Redis [redislabs](https://app.redislabs.com/#/login)/local          |
 
 <!-- [![Redux](https://camo.githubusercontent.com/9a7c7ebbabb2096c0ad0cac6f64bc9fe93f4954a3ae3f51d6f3e076ba462aab1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f72656475782d2532333539336438382e7376673f7374796c653d666f722d7468652d6261646765266c6f676f3d7265647578266c6f676f436f6c6f723d7768697465)](https://redux.js.org/) -->

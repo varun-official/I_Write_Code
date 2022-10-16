@@ -242,7 +242,7 @@ const EditorPage = () => {
             disabled={isdisabled}
             onClick={runCodeOnline}
           >
-            Run {!isdisabled ? <BsFillPlayFill /> : <BiRun />}
+            Run &nbsp;{!isdisabled ? <BsFillPlayFill /> : <BiRun />}
           </button>
         </div>
         <Split
