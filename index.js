@@ -1,15 +1,4 @@
 /** @format */
-
-// const express = require("express");
-// const http = require("http");
-// const path = require("path");
-// const mongoose = require("mongoose");
-// const bodyParser = require("body-parser");
-// const axios = require("axios");
-// const Redis = require("redis");
-// const cors = require("cors");
-// const { Server } = require("socket.io");
-
 import express from "express";
 import http from "http";
 import * as path from "path";
@@ -18,10 +7,6 @@ import bodyParser from "body-parser";
 import { createClient } from "redis";
 import cors from "cors";
 import { Server } from "socket.io";
-
-// const ACTIONS = require("./Actions");
-// const codeHistoryRoute = require("./routes/CodeHistory").default;
-// const codeRunRoute = require("./routes/CodeRun").default;
 
 import ACTIONS from "./Actions.js";
 import codeHistoryRoute from "./routes/CodeHistory.js";
@@ -53,13 +38,13 @@ const io = new Server(server, {
 app.use("/codehistory", codeHistoryRoute);
 app.use("/code", codeRunRoute);
 
-if (process.env.NODE_ENV == "production") {
-  app.use(express.static("./client/build"));
-  app.get("*", (req, res) => {
-    const dirname = path.resolve(path.dirname(""));
-    res.sendFile(path.resolve(dirname, "client", "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV == "production") {
+app.use(express.static("./client/build"));
+app.get("*", (req, res) => {
+  const dirname = path.resolve(path.dirname(""));
+  res.sendFile(path.resolve(dirname, "client", "build", "index.html"));
+});
+// }
 
 const PORT = process.env.PORT || 5000;
 
@@ -69,6 +54,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
+
   .then(() => {
     console.log("DB Connection established");
   });
@@ -81,32 +67,6 @@ client.on("connect", () => console.log("Redis connected"));
 client.on("error", (err) => console.log("Redis Connection Error", err));
 client.connect();
 const userSocketMap = {};
-
-// client.setEx("name", 100, "varun");
-// client.lPush("co", "vivek");
-// client.expire("co", 100);
-
-// const hi = async () => {
-//   const data = await client.get("name");
-//   console.log(data);
-//   console.log(await client.ttl("co"));
-// };
-// hi();
-// setTimeout(async () => {
-//   console.log(await client.ttl("co"));
-// }, 3000);
-
-// function getAllConnectedClients(roomId) {
-//   // Map
-//   return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
-//     (socketId) => {
-//       return {
-//         socketId,
-//         userName: userSocketMap[socketId],
-//       };
-//     }
-//   );
-// }
 
 const getAllRedisClints = async (roomId) => {
   const clients = await client.lRange(roomId, 0, -1);
@@ -180,13 +140,4 @@ io.on("connection", (socket) => {
 
 server.listen(PORT, () => {
   console.log("Sever up and Running at " + PORT);
-  //   const sourcecode = `cout<<"ki";`;
-  // let resultPromise = cpp.runSource(sourcecode);
-  // resultPromise
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 });
